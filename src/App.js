@@ -1,12 +1,15 @@
-import logo from "./logo.svg";
-import "./App.css";
+import React from 'react';
+import './index.css'; 
+import UserForm from './UserForm';
+import MonthlyPaymentForm from './MonthlyPaymentForm';
 
-function App() {
+const App = () => {
   return (
     <div className="App">
-      <h1>Modern Study Library</h1>
+      <UserForm />
+      <MonthlyPaymentForm />
     </div>
   );
-}
+};
 
 export default App;
