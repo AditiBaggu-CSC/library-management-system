@@ -24,10 +24,13 @@ app.use((req, res, next) => {
   }
   next();
 });
-// Connect to MongoDB
+
+// Use user routes
+app.use("/api/users", userRoutes);
+
 mongoose
   .connect(
-    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.qaath81.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority&appName=Cluster0`
+    `mongodb+srv://thecorrectsteps:sajaljain%40390@cluster0.qaath81.mongodb.net/Library?retryWrites=true&w=majority&appName=Cluster0`
   )
   .then(() => {
     console.log("Connected to MongoDB");
@@ -36,10 +39,6 @@ mongoose
     console.error("Connection error", error.message);
   });
 
-// Use user routes
-app.use("/api", userRoutes);
-
-// Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
