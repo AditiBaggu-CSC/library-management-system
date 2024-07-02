@@ -3,9 +3,11 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const path = require("path");
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 const userRoutes = require("./Routes/UserRoutes");
+const { scheduleWhatsAppMessages } = require("./scheduler");
 
 dotenv.config();
 app.use(bodyParser.json());
@@ -26,7 +28,9 @@ app.use((req, res, next) => {
 });
 
 // Use user routes
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/api/users", userRoutes);
+scheduleWhatsAppMessages();
 
 mongoose
   .connect(

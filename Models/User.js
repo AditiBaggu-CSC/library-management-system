@@ -1,3 +1,5 @@
+// User.js
+
 const mongoose = require("mongoose");
 
 const familyMemberSchema = new mongoose.Schema({
@@ -18,7 +20,7 @@ const userSchema = new mongoose.Schema({
   occupation: { type: String, required: true },
   phoneNumber: { type: String, required: true },
   age: { type: Number, required: true },
-  familyMembers: [familyMemberSchema],
+  familyMembers: { type: [familyMemberSchema] },
   presentAddress: { type: String, required: true },
   permanentAddress: { type: String, required: true },
   aadharCard: { type: String, required: true },
@@ -28,7 +30,8 @@ const userSchema = new mongoose.Schema({
     required: true,
     enum: ["morning", "evening", "fullDay"],
   },
-  payments: [paymentSchema],
+  payments: { type: [paymentSchema], required: true },
+  renewalDate: { type: Date },
 });
 
 const User = mongoose.model("User", userSchema);

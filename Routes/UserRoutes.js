@@ -1,11 +1,16 @@
+// userRoutes.js
 const express = require("express");
 const { check } = require("express-validator");
 const router = express.Router();
 const userController = require("../Controllers/UserController");
+const fileUpload = require("../Middleware/fileUpload");
 
 // Create a new user
 router.post(
-  "/create/user",
+  "/create/user",fileUpload.fields([
+    { name: "aadharCardPhoto", maxCount: 1 },
+    { name: "paymentScreenshot", maxCount: 1 },
+  ]),
   [
     check("name").not().isEmpty(),
     check("fatherName").not().isEmpty(),
@@ -15,10 +20,8 @@ router.post(
     check("presentAddress").not().isEmpty(),
     check("permanentAddress").not().isEmpty(),
     check("aadharCard").not().isEmpty(),
-    check("aadharCardPhoto").not().isEmpty(),
     check("slotBooking").not().isEmpty(),
     check("paymentAmount").isNumeric(),
-    check("paymentScreenshot").not().isEmpty(),
   ],
   userController.createUser
 );
@@ -42,7 +45,7 @@ router.get("/get/user/by/:id", userController.getUserById);
 
 // Update user
 router.patch(
-  "update/user/:id",
+  "/update/user/:id",
   [
     check("name").optional().not().isEmpty(),
     check("fatherName").optional().not().isEmpty(),
@@ -54,6 +57,7 @@ router.patch(
     check("aadharCard").optional().not().isEmpty(),
     check("aadharCardPhoto").optional().not().isEmpty(),
     check("slotBooking").optional().not().isEmpty(),
+    check("renewalDate").optional().isISO8601(), 
   ],
   userController.updateUser
 );

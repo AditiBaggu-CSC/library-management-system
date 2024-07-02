@@ -1,16 +1,16 @@
+// UserController.js
+
 const { validationResult } = require("express-validator");
 const User = require("../Models/User");
 const HttpError = require("../Middleware/http-error");
 
-// Create a new user
 const createUser = async (req, res, next) => {
   const errors = validationResult(req);
-
+  console.log(errors);
   if (!errors.isEmpty()) {
-    return res.status(422).json({
-      message: "Invalid inputs passed, please try again",
-      errors: errors.array(),
-    });
+    return next(
+      new HttpError("Invalid inputs passed, please check your data.", 422)
+    );
   }
 
   const {
@@ -19,67 +19,60 @@ const createUser = async (req, res, next) => {
     occupation,
     phoneNumber,
     age,
+    slotBooking,
+    presentAddress,
+    permanentAddress,
+    aadharCard,
     familyMembers,
+    paymentAmount,
+    renewalDate,
+  } = req.body;
+
+  let aadharCardPhoto, paymentScreenshot;
+
+  if (req.files) {
+    aadharCardPhoto = req.files.aadharCardPhoto
+      ? req.files.aadharCardPhoto[0].path
+      : undefined;
+    paymentScreenshot = req.files.paymentScreenshot
+      ? req.files.paymentScreenshot[0].path
+      : undefined;
+  }
+
+  let parsedFamilyMembers;
+  try {
+    parsedFamilyMembers = familyMembers ? JSON.parse(familyMembers) : [];
+  } catch (err) {
+    return next(new HttpError("Invalid family members data.", 422));
+  }
+
+  const createdUser = new User({
+    name,
+    fatherName,
+    occupation,
+    phoneNumber,
+    age,
+    slotBooking,
     presentAddress,
     permanentAddress,
     aadharCard,
     aadharCardPhoto,
-    slotBooking,
-    paymentAmount,
-    paymentScreenshot,
-  } = req.body;
+    familyMembers: parsedFamilyMembers,
+    payments: [{ amount: paymentAmount, screenshot: paymentScreenshot }],
+    renewalDate,
+  });
 
   try {
-    let existingUser = await User.findOne({ aadharCard });
-
-    if (existingUser) {
-      return res.status(422).json({ message: "User already exists" });
-    }
-
-    const createdUser = new User({
-      name,
-      fatherName,
-      occupation,
-      phoneNumber,
-      age,
-      familyMembers,
-      presentAddress,
-      permanentAddress,
-      aadharCard,
-      aadharCardPhoto,
-      slotBooking,
-      payments: [
-        {
-          amount: paymentAmount,
-          screenshot: paymentScreenshot,
-        },
-      ],
-    });
-
     await createdUser.save();
-
-    res.status(201).json({
-      userId: createdUser._id,
-      name: createdUser.name,
-      fatherName: createdUser.fatherName,
-      occupation: createdUser.occupation,
-      phoneNumber: createdUser.phoneNumber,
-      age: createdUser.age,
-      familyMembers: createdUser.familyMembers,
-      presentAddress: createdUser.presentAddress,
-      permanentAddress: createdUser.permanentAddress,
-      aadharCard: createdUser.aadharCard,
-      aadharCardPhoto: createdUser.aadharCardPhoto,
-      slotBooking: createdUser.slotBooking,
-      payments: createdUser.payments,
-    });
   } catch (err) {
-    console.error(err);
-    return next(new HttpError("Database error", 500));
+    console.log(err);
+    const error = new HttpError("Creating user failed, please try again.", 500);
+    return next(error);
   }
+
+  res.status(201).json({ user: createdUser });
 };
 
-// Create a monthly payment
 const createMonthlyPayment = async (req, res, next) => {
   const errors = validationResult(req);
 
@@ -93,7 +86,7 @@ const createMonthlyPayment = async (req, res, next) => {
   const { phoneNumber, paymentAmount, paymentScreenshot } = req.body;
 
   try {
-    let user = await User.findOne({ phoneNumber: phoneNumber });
+    let user = await User.findOne({ phoneNumber });
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -113,7 +106,6 @@ const createMonthlyPayment = async (req, res, next) => {
   }
 };
 
-// Get all users
 const getAllUsers = async (req, res, next) => {
   try {
     let users = await User.find({});
@@ -129,7 +121,6 @@ const getAllUsers = async (req, res, next) => {
   }
 };
 
-// Get user by ID
 const getUserById = async (req, res, next) => {
   const id = req.params.id;
 
@@ -152,7 +143,6 @@ const getUserById = async (req, res, next) => {
   }
 };
 
-// Update user
 const updateUser = async (req, res, next) => {
   const errors = validationResult(req);
 
@@ -176,6 +166,7 @@ const updateUser = async (req, res, next) => {
     aadharCard,
     aadharCardPhoto,
     slotBooking,
+    renewalDate, // Include renewalDate from request body
   } = req.body;
 
   try {
@@ -190,12 +181,13 @@ const updateUser = async (req, res, next) => {
     user.occupation = occupation;
     user.phoneNumber = phoneNumber;
     user.age = age;
-    user.familyMembers = familyMembers;
+    user.familyMembers = JSON.parse(familyMembers);
     user.presentAddress = presentAddress;
     user.permanentAddress = permanentAddress;
     user.aadharCard = aadharCard;
     user.aadharCardPhoto = aadharCardPhoto;
     user.slotBooking = slotBooking;
+    user.renewalDate = renewalDate; // Update renewalDate
 
     await user.save();
 
@@ -206,7 +198,6 @@ const updateUser = async (req, res, next) => {
   }
 };
 
-// Delete user
 const deleteUser = async (req, res, next) => {
   const id = req.params.id;
 
@@ -226,9 +217,11 @@ const deleteUser = async (req, res, next) => {
   }
 };
 
-exports.createUser = createUser;
-exports.createMonthlyPayment = createMonthlyPayment;
-exports.getAllUsers = getAllUsers;
-exports.getUserById = getUserById;
-exports.updateUser = updateUser;
-exports.deleteUser = deleteUser;
+module.exports = {
+  createUser,
+  createMonthlyPayment,
+  getAllUsers,
+  getUserById,
+  updateUser,
+  deleteUser,
+};
