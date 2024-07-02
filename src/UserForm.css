@@ -1,0 +1,83 @@
+.userform {
+  background-color: #4c516d;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.userform .form-card {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  max-width: 800px;
+  width: 100%;
+  margin: 20px;
+}
+
+.userform .form-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+}
+
+.userform .ant-btn-primary {
+  background-color: #4c516d;
+  border-color: #4c516d;
+  color: white;
+}
+
+.userform .ant-btn-danger {
+  background-color: red;
+  border-color: red;
+  color: white;
+}
+
+.userform .ant-btn-dashed {
+  border-color: #4c516d;
+  color: #4c516d;
+}
+
+.userform .text-xl {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.userform .font-semibold {
+  font-weight: 600;
+}
+
+.userform .mt-4 {
+  margin-top: 1rem;
+}
+
+.userform .mb-8 {
+  margin-bottom: 2rem;
+}
+
+.heading {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .userform .form-card {
+    margin: 10px;
+  }
+
+  .userform .ant-col {
+    width: 100% !important;
+  }
+
+  .userform .ant-space-item {
+    width: 100%; 
+  }
+}

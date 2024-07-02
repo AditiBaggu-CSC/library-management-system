@@ -1,0 +1,30 @@
+.floating-navbar {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 1200px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 10px 20px;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 400px;
+}
+
+.navbar-logo img {
+  height: 80px;
+}
+
+.navbar-signup-button {
+  background-color: #4c516d;
+  border: none;
+  font-weight: bold;
+}
+
+.navbar-signup-button:hover {
+  background-color: #3a3f52;
+}

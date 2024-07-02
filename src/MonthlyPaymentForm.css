@@ -1,0 +1,62 @@
+body {
+  background-color: #4c516d;
+  font-family: Arial, sans-serif;
+}
+
+.monthly {
+  background-color: #4c516d;
+  font-family: Arial, sans-serif;
+}
+
+.monthly .container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.monthly .form-card {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  width: 750px;
+}
+
+.monthly .form-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+}
+
+.monthly .text-2xl {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.monthly .font-bold {
+  font-weight: bold;
+}
+
+.monthly .mb-4 {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.monthly .ant-btn-primary {
+  background-color: #4c516d;
+  border-color: #4c516d;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .monthly .form-card {
+    padding: 20px;
+    width: 100%;
+  }
+
+  .monthly .ant-col {
+    width: 100% !important;
+  }
+}
