@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Input, Button, Row, Col, Upload, Card } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
-import axios from "axios";
+
 import "./MonthlyPaymentForm.css"; // Import the CSS file
 
 const { Item } = Form;
@@ -9,8 +9,8 @@ const { Item } = Form;
 const MonthlyPaymentForm = () => {
   const onFinish = async (values) => {
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/users/monthly/payment",
+      const response = await fetch(
+        "http://localhost:4444/api/users/monthly/payment",
         values
       );
       console.log("Received response: ", response.data);

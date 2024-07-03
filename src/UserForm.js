@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Form,
   Input,
@@ -19,36 +19,57 @@ const { TextArea } = Input;
 const { Option } = Select;
 
 const UserForm = () => {
+  const [fileList, setFileList] = useState({
+    aadharCardPhoto: [],
+    paymentScreenshot: [],
+  });
+
+  const handleUploadChange = (info, key) => {
+    let newFileList = [...info.fileList];
+    newFileList = newFileList.slice(-1); // Limit to 1 file
+    setFileList((prevList) => ({ ...prevList, [key]: newFileList }));
+  };
+
   const onFinish = async (values) => {
     const formData = new FormData();
 
     Object.keys(values).forEach((key) => {
-      if (key === "aadharCardPhoto" || key === "paymentScreenshot") {
-        if (values[key] && values[key].file) {
-          formData.append(key, values[key].file.originFileObj);
-        }
-      } else if (key === "familyMembers") {
+      if (key === "familyMembers") {
         formData.append(key, JSON.stringify(values[key]));
       } else {
         formData.append(key, values[key]);
       }
     });
 
+    // Append files to formData
+    if (fileList.aadharCardPhoto.length > 0) {
+      formData.append(
+        "aadharCardPhoto",
+        fileList.aadharCardPhoto[0].originFileObj
+      );
+    }
+    if (fileList.paymentScreenshot.length > 0) {
+      formData.append(
+        "paymentScreenshot",
+        fileList.paymentScreenshot[0].originFileObj
+      );
+    }
+
     try {
       const response = await fetch(
-        "http://localhost:5000/api/users/create/user",
+        "http://localhost:4444/api/users/create/user",
         {
           method: "POST",
           body: formData,
         }
       );
-      console.log("Received response: ", response.data);
+      console.log("Received response: ", response);
       notification.success({
         message: "Success",
         description: "User created successfully!",
       });
     } catch (error) {
-      console.error("Error creating user: ", error.response.data);
+      console.error("Error creating user: ", error);
       notification.error({
         message: "Error",
         description: "Failed to create user. Please try again.",
@@ -194,13 +215,15 @@ const UserForm = () => {
                       message: "Please upload your Aadhar card photo",
                     },
                   ]}
-                  valuePropName="fileList"
-                  getValueFromEvent={(e) => e.fileList}
                 >
                   <Upload
                     name="aadharCardPhoto"
                     accept=".jpg,.jpeg,.png,.pdf"
+                    fileList={fileList.aadharCardPhoto}
                     beforeUpload={() => false}
+                    onChange={(info) =>
+                      handleUploadChange(info, "aadharCardPhoto")
+                    }
                   >
                     <Button icon={<UploadOutlined />}>
                       Upload (JPG/PNG/PDF)
@@ -291,13 +314,15 @@ const UserForm = () => {
                       message: "Please upload the payment screenshot",
                     },
                   ]}
-                  valuePropName="fileList"
-                  getValueFromEvent={(e) => e.fileList}
                 >
                   <Upload
                     name="paymentScreenshot"
                     accept=".jpg,.jpeg,.png,.pdf"
+                    fileList={fileList.paymentScreenshot}
                     beforeUpload={() => false}
+                    onChange={(info) =>
+                      handleUploadChange(info, "paymentScreenshot")
+                    }
                   >
                     <Button icon={<UploadOutlined />}>
                       Upload (JPG/PNG/PDF)
