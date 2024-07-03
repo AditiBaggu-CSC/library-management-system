@@ -6,7 +6,7 @@ const HttpError = require("../Middleware/http-error");
 
 const createUser = async (req, res, next) => {
   const errors = validationResult(req);
-  console.log(errors);
+
   if (!errors.isEmpty()) {
     return next(
       new HttpError("Invalid inputs passed, please check your data.", 422)
@@ -39,11 +39,13 @@ const createUser = async (req, res, next) => {
       : undefined;
   }
 
-  let parsedFamilyMembers;
-  try {
-    parsedFamilyMembers = familyMembers ? JSON.parse(familyMembers) : [];
-  } catch (err) {
-    return next(new HttpError("Invalid family members data.", 422));
+  let parsedFamilyMembers = [];
+  if (familyMembers) {
+    try {
+      parsedFamilyMembers = JSON.parse(familyMembers);
+    } catch (err) {
+      return next(new HttpError("Invalid family members data.", 422));
+    }
   }
 
   const createdUser = new User({

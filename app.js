@@ -5,7 +5,7 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const path = require("path");
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4444;
 const userRoutes = require("./Routes/UserRoutes");
 const { scheduleWhatsAppMessages } = require("./scheduler");
 
