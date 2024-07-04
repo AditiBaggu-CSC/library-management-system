@@ -1,0 +1,22 @@
+.table-container {
+  padding: 20px;
+}
+
+.update-button {
+  background-color: #4c516d;
+  color: #fff;
+}
+
+.update-button:hover {
+  background-color: #3a3f52;
+}
+
+.delete-button {
+  background-color: #ff4d4f;
+  color: #fff;
+  margin-left: 8px;
+}
+
+.delete-button:hover {
+  background-color: #d9363e;
+}

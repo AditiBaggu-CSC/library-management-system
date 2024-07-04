@@ -1,0 +1,14 @@
+.sign-in-card {
+  max-width: 400px;
+  margin: 200px auto; /* Increased margin to move the card down */
+  padding: 20px;
+  text-align: center;
+}
+
+.sign-in-input {
+  margin-bottom: 20px;
+}
+
+.sign-in-button {
+  width: 100%;
+}

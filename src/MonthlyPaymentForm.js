@@ -1,21 +1,59 @@
-import React from "react";
-import { Form, Input, Button, Row, Col, Upload, Card } from "antd";
+import React, { useState } from "react";
+import {
+  Form,
+  Input,
+  Button,
+  Row,
+  Col,
+  Upload,
+  Card,
+  notification,
+} from "antd";
 import { UploadOutlined } from "@ant-design/icons";
-
-import "./MonthlyPaymentForm.css"; // Import the CSS file
+import "./MonthlyPaymentForm.css";
 
 const { Item } = Form;
 
 const MonthlyPaymentForm = () => {
+  const [fileList, setFileList] = useState([]);
+
+  const handleUploadChange = (info) => {
+    let newFileList = [...info.fileList];
+    newFileList = newFileList.slice(-1); // Limit to 1 file
+    setFileList(newFileList);
+  };
+
   const onFinish = async (values) => {
+    const formData = new FormData();
+
+    Object.keys(values).forEach((key) => {
+      formData.append(key, values[key]);
+    });
+
+    // Append file to formData
+    if (fileList.length > 0) {
+      formData.append("paymentScreenshot", fileList[0].originFileObj);
+    }
+
     try {
       const response = await fetch(
         "http://localhost:4444/api/users/monthly/payment",
-        values
+        {
+          method: "POST",
+          body: formData,
+        }
       );
-      console.log("Received response: ", response.data);
+      console.log("Received response: ", response);
+      notification.success({
+        message: "Success",
+        description: "Monthly payment recorded successfully!",
+      });
     } catch (error) {
-      console.error("Error creating monthly payment: ", error.response.data);
+      console.error("Error creating monthly payment: ", error);
+      notification.error({
+        message: "Error",
+        description: "Failed to record monthly payment. Please try again.",
+      });
     }
   };
 
@@ -71,7 +109,9 @@ const MonthlyPaymentForm = () => {
                 >
                   <Upload
                     accept=".jpg,.jpeg,.png,.pdf"
+                    fileList={fileList}
                     beforeUpload={() => false}
+                    onChange={handleUploadChange}
                   >
                     <Button icon={<UploadOutlined />}>
                       Upload (JPG/PNG/PDF)
