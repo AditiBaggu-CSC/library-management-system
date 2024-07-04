@@ -25,7 +25,6 @@ const createUser = async (req, res, next) => {
     aadharCard,
     familyMembers,
     paymentAmount,
-    renewalDate,
   } = req.body;
 
   let aadharCardPhoto, paymentScreenshot;
@@ -48,6 +47,9 @@ const createUser = async (req, res, next) => {
     }
   }
 
+  const renewalDate = new Date();
+  renewalDate.setMonth(renewalDate.getMonth() + 1);
+
   const createdUser = new User({
     name,
     fatherName,
@@ -62,6 +64,7 @@ const createUser = async (req, res, next) => {
     familyMembers: parsedFamilyMembers,
     payments: [{ amount: paymentAmount, screenshot: paymentScreenshot }],
     renewalDate,
+    seatNumber: Math.floor(Math.random() * 100) + 1, // Assign a random seat number
   });
 
   try {
@@ -79,19 +82,25 @@ const createMonthlyPayment = async (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    return res.status(422).json({
-      message: "Invalid inputs passed, please try again",
-      errors: errors.array(),
-    });
+    return next(
+      new HttpError("Invalid inputs passed, please check your data.", 422)
+    );
   }
 
-  const { phoneNumber, paymentAmount, paymentScreenshot } = req.body;
+  const { phoneNumber, paymentAmount } = req.body;
+
+  let paymentScreenshot;
+  if (req.files) {
+    paymentScreenshot = req.files.paymentScreenshot
+      ? req.files.paymentScreenshot[0].path
+      : undefined;
+  }
 
   try {
     let user = await User.findOne({ phoneNumber });
 
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return next(new HttpError("User not found", 404));
     }
 
     user.payments.push({
@@ -104,7 +113,9 @@ const createMonthlyPayment = async (req, res, next) => {
     res.status(200).json({ user });
   } catch (err) {
     console.error(err);
-    return next(new HttpError("Database error", 500));
+    return next(
+      new HttpError("Creating monthly payment failed, please try again.", 500)
+    );
   }
 };
 
@@ -168,7 +179,8 @@ const updateUser = async (req, res, next) => {
     aadharCard,
     aadharCardPhoto,
     slotBooking,
-    renewalDate, // Include renewalDate from request body
+    renewalDate,
+    seatNumber,
   } = req.body;
 
   try {
@@ -189,7 +201,8 @@ const updateUser = async (req, res, next) => {
     user.aadharCard = aadharCard;
     user.aadharCardPhoto = aadharCardPhoto;
     user.slotBooking = slotBooking;
-    user.renewalDate = renewalDate; // Update renewalDate
+    user.renewalDate = renewalDate;
+    user.seatNumber = seatNumber;
 
     await user.save();
 

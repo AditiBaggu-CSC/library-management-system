@@ -7,7 +7,8 @@ const fileUpload = require("../Middleware/fileUpload");
 
 // Create a new user
 router.post(
-  "/create/user",fileUpload.fields([
+  "/create/user",
+  fileUpload.fields([
     { name: "aadharCardPhoto", maxCount: 1 },
     { name: "paymentScreenshot", maxCount: 1 },
   ]),
@@ -29,11 +30,8 @@ router.post(
 // Create a monthly payment
 router.post(
   "/monthly/payment",
-  [
-    check("phoneNumber").not().isEmpty(),
-    check("paymentAmount").isNumeric(),
-    check("paymentScreenshot").not().isEmpty(),
-  ],
+  fileUpload.fields([{ name: "paymentScreenshot", maxCount: 1 }]),
+  [check("phoneNumber").not().isEmpty(), check("paymentAmount").isNumeric()],
   userController.createMonthlyPayment
 );
 
@@ -57,7 +55,7 @@ router.patch(
     check("aadharCard").optional().not().isEmpty(),
     check("aadharCardPhoto").optional().not().isEmpty(),
     check("slotBooking").optional().not().isEmpty(),
-    check("renewalDate").optional().isISO8601(), 
+    check("renewalDate").optional().isISO8601(),
   ],
   userController.updateUser
 );

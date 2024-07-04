@@ -1,5 +1,3 @@
-// User.js
-
 const mongoose = require("mongoose");
 
 const familyMemberSchema = new mongoose.Schema({
@@ -32,6 +30,7 @@ const userSchema = new mongoose.Schema({
   },
   payments: { type: [paymentSchema], required: true },
   renewalDate: { type: Date },
+  seatNumber: { type: Number, required: true },
 });
 
 const User = mongoose.model("User", userSchema);
