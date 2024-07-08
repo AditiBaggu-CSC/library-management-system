@@ -29,8 +29,9 @@ const userSchema = new mongoose.Schema({
     enum: ["morning", "evening", "fullDay"],
   },
   payments: { type: [paymentSchema], required: true },
-  renewalDate: { type: Date },
+  renewalDate: { type: String },
   seatNumber: { type: Number, required: true },
+  email: { type: String },
 });
 
 const User = mongoose.model("User", userSchema);
