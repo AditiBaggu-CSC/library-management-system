@@ -47,8 +47,9 @@ const createUser = async (req, res, next) => {
     }
   }
 
-  const renewalDate = new Date();
-  renewalDate.setMonth(renewalDate.getMonth() + 1);
+  let newRenewalDate = new Date();
+  newRenewalDate.setMonth(newRenewalDate.getMonth() + 1);
+  user.renewalDate = newRenewalDate;
 
   const createdUser = new User({
     name,
@@ -107,6 +108,11 @@ const createMonthlyPayment = async (req, res, next) => {
       amount: paymentAmount,
       screenshot: paymentScreenshot,
     });
+
+    // Update renewal date
+    let newRenewalDate = new Date();
+    newRenewalDate.setMonth(newRenewalDate.getMonth() + 1);
+    user.renewalDate = newRenewalDate;
 
     await user.save();
 
@@ -212,7 +218,6 @@ const updateUser = async (req, res, next) => {
     return next(new HttpError("Database error", 500));
   }
 };
-
 const deleteUser = async (req, res, next) => {
   const id = req.params.id;
 

@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
     enum: ["morning", "evening", "fullDay"],
   },
   payments: { type: [paymentSchema], required: true },
-  renewalDate: { type: Date },
+  renewalDate: { type: Date, required: true },
   seatNumber: { type: Number, required: true },
 });
 
