@@ -7,7 +7,7 @@ const path = require("path");
 const app = express();
 const PORT = process.env.PORT || 4444;
 const userRoutes = require("./Routes/UserRoutes");
-const { scheduleWhatsAppMessages } = require("./scheduler");
+const { scheduleEmailReminders } = require("./emailScheduler");
 
 dotenv.config();
 app.use(bodyParser.json());
@@ -30,7 +30,7 @@ app.use((req, res, next) => {
 // Use user routes
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/api/users", userRoutes);
-scheduleWhatsAppMessages();
+scheduleEmailReminders();
 
 mongoose
   .connect(
