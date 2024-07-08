@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Table, Button, notification, Modal, Form, Input } from "antd";
-import "./ViewRecords.css";
+import { Table, Button, notification, Modal } from "antd";
+import UpdateUserForm from "./UpdateUser";
 
 const ViewRecords = () => {
   const [records, setRecords] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [updateVisible, setUpdateVisible] = useState(false);
-  const [form] = Form.useForm();
 
   useEffect(() => {
     fetchRecords();
@@ -47,15 +46,13 @@ const ViewRecords = () => {
 
   const handleUpdate = (record) => {
     setSelectedUser(record);
-    form.setFieldsValue(record);
     setUpdateVisible(true);
   };
 
-  const handleUpdateSubmit = async () => {
+  const handleUpdateSubmit = async (id, values) => {
     try {
-      const values = form.getFieldsValue();
       const response = await fetch(
-        `http://localhost:4444/api/users/update/user/${selectedUser._id}`,
+        `http://localhost:4444/api/users/update/user/${id}`,
         {
           method: "PATCH",
           headers: {
@@ -114,11 +111,7 @@ const ViewRecords = () => {
           <Button type="primary" onClick={() => handleUpdate(record)}>
             Update
           </Button>
-          <Button
-            type="danger"
-            onClick={() => handleDelete(record._id)}
-            style={{ marginLeft: 8 }}
-          >
+          <Button type="danger" onClick={() => handleDelete(record._id)}>
             Delete
           </Button>
         </>
@@ -129,55 +122,17 @@ const ViewRecords = () => {
   return (
     <>
       <Table dataSource={records} columns={columns} rowKey="_id" />
-
       <Modal
         title="Update User"
         visible={updateVisible}
         onCancel={handleUpdateCancel}
-        footer={[
-          <Button key="back" onClick={handleUpdateCancel}>
-            Cancel
-          </Button>,
-          <Button key="submit" type="primary" onClick={handleUpdateSubmit}>
-            Update
-          </Button>,
-        ]}
+        footer={null}
       >
-        <Form form={form} layout="vertical">
-          <Form.Item name="name" label="Name">
-            <Input />
-          </Form.Item>
-          <Form.Item name="fatherName" label="Father's Name">
-            <Input />
-          </Form.Item>
-          <Form.Item name="occupation" label="Occupation">
-            <Input />
-          </Form.Item>
-          <Form.Item name="phoneNumber" label="Phone Number">
-            <Input />
-          </Form.Item>
-          <Form.Item name="age" label="Age">
-            <Input />
-          </Form.Item>
-          <Form.Item name="seatNumber" label="Seat Number">
-            <Input />
-          </Form.Item>
-          <Form.Item name="slotBooking" label="Slot Booking">
-            <Input />
-          </Form.Item>
-          <Form.Item name="presentAddress" label="Present Address">
-            <Input />
-          </Form.Item>
-          <Form.Item name="permanentAddress" label="Permanent Address">
-            <Input />
-          </Form.Item>
-          <Form.Item name="aadharCard" label="Aadhar Card">
-            <Input />
-          </Form.Item>
-          <Form.Item name="renewalDate" label="Renewal Date">
-            <Input />
-          </Form.Item>
-        </Form>
+        <UpdateUserForm
+          initialValues={selectedUser}
+          onUpdate={handleUpdateSubmit}
+          onCancel={handleUpdateCancel}
+        />
       </Modal>
     </>
   );
