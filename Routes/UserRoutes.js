@@ -1,4 +1,3 @@
-// userRoutes.js
 const express = require("express");
 const { check } = require("express-validator");
 const router = express.Router();
@@ -15,6 +14,7 @@ router.post(
   [
     check("name").not().isEmpty(),
     check("fatherName").not().isEmpty(),
+    check("email").isEmail().not().isEmpty(),
     check("occupation").not().isEmpty(),
     check("phoneNumber").not().isEmpty(),
     check("age").isNumeric(),
@@ -47,8 +47,10 @@ router.patch(
   [
     check("name").optional().not().isEmpty(),
     check("fatherName").optional().not().isEmpty(),
+    check("email").optional().isEmail().not().isEmpty(),
     check("occupation").optional().not().isEmpty(),
     check("phoneNumber").optional().not().isEmpty(),
+    check("seatNumber").optional().not().isEmpty(),
     check("age").optional().isNumeric(),
     check("presentAddress").optional().not().isEmpty(),
     check("permanentAddress").optional().not().isEmpty(),

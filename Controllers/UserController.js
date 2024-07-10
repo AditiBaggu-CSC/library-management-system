@@ -1,5 +1,3 @@
-// UserController.js
-
 const { validationResult } = require("express-validator");
 const User = require("../Models/User");
 const HttpError = require("../Middleware/http-error");
@@ -16,6 +14,7 @@ const createUser = async (req, res, next) => {
   const {
     name,
     fatherName,
+    email,
     occupation,
     phoneNumber,
     age,
@@ -49,11 +48,11 @@ const createUser = async (req, res, next) => {
 
   let newRenewalDate = new Date();
   newRenewalDate.setMonth(newRenewalDate.getMonth() + 1);
-  user.renewalDate = newRenewalDate;
 
   const createdUser = new User({
     name,
     fatherName,
+    email,
     occupation,
     phoneNumber,
     age,
@@ -64,7 +63,7 @@ const createUser = async (req, res, next) => {
     aadharCardPhoto,
     familyMembers: parsedFamilyMembers,
     payments: [{ amount: paymentAmount, screenshot: paymentScreenshot }],
-    renewalDate,
+    renewalDate: newRenewalDate, // Corrected assignment
     seatNumber: Math.floor(Math.random() * 100) + 1, // Assign a random seat number
   });
 
@@ -88,7 +87,7 @@ const createMonthlyPayment = async (req, res, next) => {
     );
   }
 
-  const { phoneNumber, paymentAmount } = req.body;
+  const { email, paymentAmount } = req.body;
 
   let paymentScreenshot;
   if (req.files) {
@@ -98,7 +97,7 @@ const createMonthlyPayment = async (req, res, next) => {
   }
 
   try {
-    let user = await User.findOne({ phoneNumber });
+    let user = await User.findOne({ email });
 
     if (!user) {
       return next(new HttpError("User not found", 404));
@@ -175,18 +174,15 @@ const updateUser = async (req, res, next) => {
   const id = req.params.id;
   const {
     name,
-    fatherName,
+    email,
     occupation,
     phoneNumber,
     age,
-    familyMembers,
     presentAddress,
-    permanentAddress,
-    aadharCard,
-    aadharCardPhoto,
     slotBooking,
     renewalDate,
     seatNumber,
+    amount: paymentAmount,
   } = req.body;
 
   try {
@@ -197,19 +193,15 @@ const updateUser = async (req, res, next) => {
     }
 
     user.name = name;
-    user.fatherName = fatherName;
+    user.email = email;
     user.occupation = occupation;
     user.phoneNumber = phoneNumber;
     user.age = age;
-    user.familyMembers = JSON.parse(familyMembers);
     user.presentAddress = presentAddress;
-    user.permanentAddress = permanentAddress;
-    user.aadharCard = aadharCard;
-    user.aadharCardPhoto = aadharCardPhoto;
     user.slotBooking = slotBooking;
     user.renewalDate = renewalDate;
     user.seatNumber = seatNumber;
-
+    user.paymentAmount = paymentAmount;
     await user.save();
 
     res.status(200).json({ user });
@@ -218,6 +210,7 @@ const updateUser = async (req, res, next) => {
     return next(new HttpError("Database error", 500));
   }
 };
+
 const deleteUser = async (req, res, next) => {
   const id = req.params.id;
 
