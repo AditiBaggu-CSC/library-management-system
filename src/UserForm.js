@@ -113,10 +113,14 @@ const UserForm = () => {
             <Row gutter={16}>
               <Col span={24} md={12}>
                 <Item
-                  name="occupation"
-                  label="Occupation"
+                  name="email"
+                  label="Email"
                   rules={[
-                    { required: true, message: "Please enter your occupation" },
+                    {
+                      required: true,
+                      type: "email",
+                      message: "Please enter a valid email address",
+                    },
                   ]}
                 >
                   <Input />
@@ -140,24 +144,22 @@ const UserForm = () => {
             <Row gutter={16}>
               <Col span={24} md={12}>
                 <Item
+                  name="occupation"
+                  label="Occupation"
+                  rules={[
+                    { required: true, message: "Please enter your occupation" },
+                  ]}
+                >
+                  <Input />
+                </Item>
+              </Col>
+              <Col span={24} md={12}>
+                <Item
                   name="age"
                   label="Age"
                   rules={[{ required: true, message: "Please enter your age" }]}
                 >
                   <Input type="number" />
-                </Item>
-              </Col>
-              <Col span={24} md={12}>
-                <Item
-                  name="slotBooking"
-                  label="Slot Booking"
-                  rules={[{ required: true, message: "Please select a slot" }]}
-                >
-                  <Select placeholder="Select a slot">
-                    <Option value="morning">Morning</Option>
-                    <Option value="evening">Evening</Option>
-                    <Option value="fullDay">Full Day</Option>
-                  </Select>
                 </Item>
               </Col>
             </Row>
@@ -232,7 +234,21 @@ const UserForm = () => {
                 </Item>
               </Col>
             </Row>
-
+            <Row gutter={16}>
+              <Col span={24} md={12}>
+                <Item
+                  name="slotBooking"
+                  label="Slot Booking"
+                  rules={[{ required: true, message: "Please select a slot" }]}
+                >
+                  <Select placeholder="Select a slot">
+                    <Option value="morning">Morning</Option>
+                    <Option value="evening">Evening</Option>
+                    <Option value="fullDay">Full Day</Option>
+                  </Select>
+                </Item>
+              </Col>
+            </Row>
             <h2 className="text-xl font-semibold mt-4">Family Members</h2>
             <Form.List name="familyMembers">
               {(fields, { add, remove }) => (

@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { Table, Button, notification, Modal } from "antd";
-import UpdateUserForm from "./UpdateUser";
+import { Table, Button, notification, Modal, Form, Input } from "antd";
+import { useNavigate } from "react-router-dom";
+import "./ViewRecords.css";
 
-const ViewRecords = () => {
+const ViewRecords = ({ isAuthenticated }) => {
   const [records, setRecords] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [updateVisible, setUpdateVisible] = useState(false);
+  const [form] = Form.useForm();
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/signin");
+    }
+  }, [isAuthenticated, navigate]);
   useEffect(() => {
     fetchRecords();
   }, []);
@@ -46,13 +54,15 @@ const ViewRecords = () => {
 
   const handleUpdate = (record) => {
     setSelectedUser(record);
+    form.setFieldsValue(record);
     setUpdateVisible(true);
   };
 
-  const handleUpdateSubmit = async (id, values) => {
+  const handleUpdateSubmit = async () => {
     try {
+      const values = form.getFieldsValue();
       const response = await fetch(
-        `http://localhost:4444/api/users/update/user/${id}`,
+        `http://localhost:4444/api/users/update/user/${selectedUser._id}`,
         {
           method: "PATCH",
           headers: {
@@ -85,10 +95,10 @@ const ViewRecords = () => {
 
   const columns = [
     { title: "Name", dataIndex: "name", key: "name" },
-    { title: "Father's Name", dataIndex: "fatherName", key: "fatherName" },
     { title: "Occupation", dataIndex: "occupation", key: "occupation" },
     { title: "Phone Number", dataIndex: "phoneNumber", key: "phoneNumber" },
     { title: "Age", dataIndex: "age", key: "age" },
+    { title: "Email", dataIndex: "email", key: "email" },
     { title: "Seat Number", dataIndex: "seatNumber", key: "seatNumber" },
     { title: "Slot Booking", dataIndex: "slotBooking", key: "slotBooking" },
     {
@@ -96,22 +106,25 @@ const ViewRecords = () => {
       dataIndex: "presentAddress",
       key: "presentAddress",
     },
-    {
-      title: "Permanent Address",
-      dataIndex: "permanentAddress",
-      key: "permanentAddress",
-    },
-    { title: "Aadhar Card", dataIndex: "aadharCard", key: "aadharCard" },
     { title: "Renewal Date", dataIndex: "renewalDate", key: "renewalDate" },
+    { title: "Amount", dataIndex: "paymentAmount", key: "paymentAmount" },
     {
       title: "Action",
       key: "action",
       render: (text, record) => (
         <>
-          <Button type="primary" onClick={() => handleUpdate(record)}>
+          <Button
+            type="primary"
+            className="update-button"
+            onClick={() => handleUpdate(record)}
+          >
             Update
           </Button>
-          <Button type="danger" onClick={() => handleDelete(record._id)}>
+          <Button
+            type="danger"
+            className="delete-button"
+            onClick={() => handleDelete(record._id)}
+          >
             Delete
           </Button>
         </>
@@ -120,21 +133,56 @@ const ViewRecords = () => {
   ];
 
   return (
-    <>
+    <div className="table-container">
       <Table dataSource={records} columns={columns} rowKey="_id" />
+
       <Modal
         title="Update User"
         visible={updateVisible}
         onCancel={handleUpdateCancel}
-        footer={null}
+        footer={[
+          <Button key="back" onClick={handleUpdateCancel}>
+            Cancel
+          </Button>,
+          <Button key="submit" type="primary" onClick={handleUpdateSubmit}>
+            Update
+          </Button>,
+        ]}
       >
-        <UpdateUserForm
-          initialValues={selectedUser}
-          onUpdate={handleUpdateSubmit}
-          onCancel={handleUpdateCancel}
-        />
+        <Form form={form} layout="vertical">
+          <Form.Item name="name" label="Name">
+            <Input />
+          </Form.Item>
+          <Form.Item name="occupation" label="Occupation">
+            <Input />
+          </Form.Item>
+          <Form.Item name="phoneNumber" label="Phone Number">
+            <Input />
+          </Form.Item>
+          <Form.Item name="age" label="Age">
+            <Input />
+          </Form.Item>
+          <Form.Item name="email" label="Email">
+            <Input />
+          </Form.Item>
+          <Form.Item name="seatNumber" label="Seat Number">
+            <Input />
+          </Form.Item>
+          <Form.Item name="slotBooking" label="Slot Booking">
+            <Input />
+          </Form.Item>
+          <Form.Item name="presentAddress" label="Present Address">
+            <Input />
+          </Form.Item>
+          <Form.Item name="paymentAmount" label="Payment Amount">
+            <Input />
+          </Form.Item>
+          <Form.Item name="renewalDate" label="Renewal Date">
+            <Input />
+          </Form.Item>
+        </Form>
       </Modal>
-    </>
+    </div>
   );
 };
 

@@ -1,7 +1,6 @@
-.userform {
+.update-images {
   background-color: #4c516d;
   font-family: Arial, sans-serif;
-  margin-top: 100px;
 }
 
 .container {
@@ -11,56 +10,55 @@
   min-height: 100vh;
 }
 
-.userform .form-card {
+.update-images .form-card {
   background: #ffffff;
   border-radius: 10px;
   padding: 20px;
   box-shadow: rgb(255, 255, 255) 5px 5px, rgba(240, 235, 235, 0.3) 10px 10px,
-    rgba(199, 197, 197, 0.2) 15px 15px, rgba(150, 148, 148, 0.1) 20px 20px,
-    rgba(139, 138, 138, 0.05) 25px 25px;
-  transition: all 0.3s ease;
+  rgba(199, 197, 197, 0.2) 15px 15px, rgba(150, 148, 148, 0.1) 20px 20px,
+  rgba(139, 138, 138, 0.05) 25px 25px;  transition: all 0.3s ease;
   max-width: 800px;
   width: 100%;
   margin: 20px;
 }
 
-.userform .form-card:hover {
+.update-images .form-card:hover {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   transform: translateY(-5px);
 }
 
-.userform .ant-btn-primary {
+.update-images .ant-btn-primary {
   background-color: #4c516d;
   border-color: #4c516d;
   color: white;
 }
 
-.userform .ant-btn-danger {
+.update-images .ant-btn-danger {
   background-color: red;
   border-color: red;
   color: white;
 }
 
-.userform .ant-btn-dashed {
+.update-images .ant-btn-dashed {
   border-color: #4c516d;
   color: #4c516d;
 }
 
-.userform .text-xl {
+.update-images .text-xl {
   font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
 
-.userform .font-semibold {
+.update-images .font-semibold {
   font-weight: 600;
 }
 
-.userform .mt-4 {
+.update-images .mt-4 {
   margin-top: 1rem;
 }
 
-.userform .mb-8 {
+.update-images .mb-8 {
   margin-bottom: 2rem;
 }
 
@@ -72,15 +70,15 @@
 }
 
 @media (max-width: 768px) {
-  .userform .form-card {
+  .update-images .form-card {
     margin: 10px;
   }
 
-  .userform .ant-col {
+  .update-images .ant-col {
     width: 100% !important;
   }
 
-  .userform .ant-space-item {
+  .update-images .ant-space-item {
     width: 100%;
   }
 }

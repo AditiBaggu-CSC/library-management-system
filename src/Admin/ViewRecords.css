@@ -1,10 +1,12 @@
 .table-container {
   padding: 20px;
+  margin-top: 100px; /* Added margin-top to move the table down */
 }
 
 .update-button {
   background-color: #4c516d;
   color: #fff;
+  margin-right: 8px;
 }
 
 .update-button:hover {
@@ -14,7 +16,6 @@
 .delete-button {
   background-color: #ff4d4f;
   color: #fff;
-  margin-left: 8px;
 }
 
 .delete-button:hover {

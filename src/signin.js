@@ -26,25 +26,33 @@ const SignInForm = ({ setIsAuthenticated }) => {
   };
 
   return (
-    <Card className="sign-in-card">
-      <h2>Sign In</h2>
-      <Input
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        className="sign-in-input"
-      />
-      <Input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        className="sign-in-input"
-      />
-      <Button type="primary" onClick={handleLogin} className="sign-in-button">
-        Login
-      </Button>
-    </Card>
+    <div className="signin">
+      <div className="container">
+        <Card className="form-card">
+          <h2 className="text-2xl">Sign In</h2>
+          <Input
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="sign-in-input"
+          />
+          <Input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="sign-in-input"
+          />
+          <Button
+            type="primary"
+            onClick={handleLogin}
+            className="sign-in-button"
+          >
+            Login
+          </Button>
+        </Card>
+      </div>
+    </div>
   );
 };
 

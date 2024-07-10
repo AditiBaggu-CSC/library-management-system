@@ -2,25 +2,47 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #f0f2f5;
+  background-color: #4c516d;
   height: 100vh;
+  padding-top: 50px; /* Added padding to avoid direct touch with the top */
 }
 
 .dashboard-content {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 80px; /* Increased gap between the cards */
   margin-top: 50px;
+  flex-wrap: wrap; /* Ensure the items wrap on smaller screens */
 }
 
 .dashboard-card {
-  width: 300px;
+  width: 300px; /* Card size */
   text-align: center;
   cursor: pointer;
   transition: transform 0.3s, box-shadow 0.3s;
+  margin-top: 100px; /* Margin top for spacing */
+  border: none; /* Removed the default border */
+  box-shadow: rgb(216, 218, 220) 0px 20px 30px -10px;
 }
 
 .dashboard-card:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card-title {
+  font-size: 24px; /* Adjust title size if needed */
+  padding: 20px;
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+@media (max-width: 768px) {
+  .dashboard-content {
+    flex-direction: column; /* Stack cards vertically on mobile view */
+    align-items: center;
+  }
+
+  .dashboard-card {
+    width: 90%; /* Adjust width for mobile view */
+  }
 }

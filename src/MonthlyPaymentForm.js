@@ -68,12 +68,12 @@ const MonthlyPaymentForm = () => {
             <Row gutter={16}>
               <Col xs={24} md={12}>
                 <Item
-                  name="phoneNumber"
-                  label="Phone Number"
+                  name="email"
+                  label="Email"
                   rules={[
                     {
                       required: true,
-                      message: "Please enter your phone number",
+                      message: "Please enter your email address",
                     },
                   ]}
                 >

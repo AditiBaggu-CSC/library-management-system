@@ -3,25 +3,30 @@ import { useNavigate } from "react-router-dom";
 import { Card } from "antd";
 import "./AdminDashboard.css";
 
-const AdminDashboard = () => {
+const AdminDashboard = ({ isAuthenticated }) => {
   const navigate = useNavigate();
+
+  if (!isAuthenticated) {
+    navigate("/signin");
+    return null;
+  }
 
   return (
     <div className="admin-dashboard">
       <div className="dashboard-content">
         <Card
           className="dashboard-card"
-          title="View Records"
+          hoverable
           onClick={() => navigate("/admin/view-records")}
         >
-          <p>Click here to view all records.</p>
+          <div className="card-title">View Records</div>
         </Card>
         <Card
           className="dashboard-card"
-          title="Update Images"
+          hoverable
           onClick={() => navigate("/admin/update-images")}
         >
-          <p>Click here to update images.</p>
+          <div className="card-title">Update Images</div>
         </Card>
       </div>
     </div>

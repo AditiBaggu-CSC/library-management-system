@@ -1,14 +1,57 @@
-.sign-in-card {
-  max-width: 400px;
-  margin: 200px auto; /* Increased margin to move the card down */
+body {
+  background-color: #4c516d;
+  font-family: Arial, sans-serif;
+}
+
+.signin {
+  background-color: #4c516d;
+  font-family: Arial, sans-serif;
+}
+
+.signin .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.signin .form-card {
+  background: #ffffff;
+  border-radius: 10px;
   padding: 20px;
+  box-shadow: rgb(255, 255, 255) 5px 5px, rgba(240, 235, 235, 0.3) 10px 10px,
+    rgba(199, 197, 197, 0.2) 15px 15px, rgba(150, 148, 148, 0.1) 20px 20px,
+    rgba(139, 138, 138, 0.05) 25px 25px;
+  transition: all 0.3s ease;
+  width: 400px;
+}
+
+.signin .form-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+}
+
+.signin .text-2xl {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
   text-align: center;
 }
 
-.sign-in-input {
+.signin .sign-in-input {
   margin-bottom: 20px;
 }
 
-.sign-in-button {
+.signin .sign-in-button {
   width: 100%;
+  background-color: #4c516d;
+  border-color: #4c516d;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .signin .form-card {
+    padding: 20px;
+    width: 100%;
+  }
 }

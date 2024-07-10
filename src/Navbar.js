@@ -15,10 +15,16 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
   return (
     <div className="floating-navbar">
       <div className="navbar-logo">
-        <img src={logo} alt="Logo" />
+        <Link to="/">
+          <img src={logo} alt="Logo" />
+        </Link>
       </div>
       {isAuthenticated ? (
-        <Button type="primary" onClick={handleSignOut}>
+        <Button
+          type="primary"
+          className="navbar-signup-button"
+          onClick={handleSignOut}
+        >
           Sign Out
         </Button>
       ) : (
