@@ -15,13 +15,16 @@ const HomePage = () => {
     const fetchImages = async () => {
       try {
         const response = await fetch(
-          "http://localhost:4444/api/images/get/images"
+          `${process.env.REACTAPP_BACKEND_URL}/api/images/get/images`
         );
+        console.log(response);
+
         if (response.ok) {
           const data = await response.json();
+          console.log(data);
           setImages({
-            registrationImage: `http://localhost:4444/${data.images.registrationImage}`,
-            paymentsImage: `http://localhost:4444/${data.images.paymentsImage}`,
+            registrationImage: `${process.env.REACTAPP_BACKEND_URL}/${data.images.registrationImage}`,
+            paymentsImage: `${process.env.REACTAPP_BACKEND_URL}/${data.images.paymentsImage}`,
           });
         } else {
           throw new Error("Failed to fetch images");

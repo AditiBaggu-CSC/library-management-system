@@ -22,7 +22,7 @@ const ViewRecords = ({ isAuthenticated }) => {
   const fetchRecords = async () => {
     try {
       const response = await fetch(
-        "http://localhost:4444/api/users/get/all/users"
+        `${process.env.REACTAPP_BACKEND_URL}/api/users/get/all/users`
       );
       const data = await response.json();
       setRecords(data.users);
@@ -36,7 +36,7 @@ const ViewRecords = ({ isAuthenticated }) => {
 
   const handleDelete = async (id) => {
     try {
-      await fetch(`http://localhost:4444/api/users/delete/user/${id}`, {
+      await fetch(`${process.env.REACTAPP_BACKEND_URL}/api/users/delete/user/${id}`, {
         method: "DELETE",
       });
       notification.success({
@@ -62,7 +62,7 @@ const ViewRecords = ({ isAuthenticated }) => {
     try {
       const values = form.getFieldsValue();
       const response = await fetch(
-        `http://localhost:4444/api/users/update/user/${selectedUser._id}`,
+        `${process.env.REACTAPP_BACKEND_URL}/api/users/update/user/${selectedUser._id}`,
         {
           method: "PATCH",
           headers: {

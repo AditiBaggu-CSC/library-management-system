@@ -23,7 +23,7 @@ const UpdateImages = ({ isAuthenticated }) => {
 
     try {
       const response = await fetch(
-        "http://localhost:4444/api/images/update/images",
+        `${process.env.REACTAPP_BACKEND_URL}/api/images/update/images`,
         {
           method: "POST",
           body: formData,

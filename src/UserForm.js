@@ -57,7 +57,7 @@ const UserForm = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:4444/api/users/create/user",
+        `${process.env.REACTAPP_BACKEND_URL}/api/users/create/user`,
         {
           method: "POST",
           body: formData,
