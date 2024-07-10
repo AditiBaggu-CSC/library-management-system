@@ -17,8 +17,12 @@ const sendEmailReminder = async (user, daysUntilRenewal) => {
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: user.email, // Ensure user document has an 'email' field
-    subject: "Subscription Renewal Reminder",
-    text: `Dear ${user.name}, your renewal date is in ${daysUntilRenewal} day(s). Please renew your subscription.`,
+    subject: "Modern Study Library Subscription Renewal Reminder",
+    text: `Dear ${user.name}, 
+    your renewal date is in ${daysUntilRenewal} day(s). Please renew your subscription using the below link.
+    https://modern-study-library.thecorrectsteps.com/monthly/payment.
+    
+    Thank You for choosing Modern Study Library`,
   };
 
   try {
@@ -75,7 +79,7 @@ const checkRenewalDates = async () => {
 
 const scheduleEmailReminders = () => {
   // Schedule the function to run daily at 6:05 PM
-  cron.schedule("44 18 * * *", checkRenewalDates);
+  cron.schedule("00 09 * * *", checkRenewalDates);
 };
 
 module.exports = { scheduleEmailReminders };
