@@ -57,7 +57,7 @@ const UserForm = () => {
 
     try {
       const response = await fetch(
-        `${process.env.REACTAPP_BACKEND_URL}/api/users/create/user`,
+        `https://modern-study-library.drhlabs.com/api/users/create/user`,
         {
           method: "POST",
           body: formData,

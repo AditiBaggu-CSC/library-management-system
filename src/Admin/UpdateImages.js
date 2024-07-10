@@ -23,7 +23,7 @@ const UpdateImages = ({ isAuthenticated }) => {
 
     try {
       const response = await fetch(
-        `${process.env.REACTAPP_BACKEND_URL}/api/images/update/images`,
+        `https://modern-study-library.drhlabs.com/api/images/update/images`,
         {
           method: "POST",
           body: formData,

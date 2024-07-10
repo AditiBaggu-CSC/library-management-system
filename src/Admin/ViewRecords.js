@@ -22,7 +22,7 @@ const ViewRecords = ({ isAuthenticated }) => {
   const fetchRecords = async () => {
     try {
       const response = await fetch(
-        `${process.env.REACTAPP_BACKEND_URL}/api/users/get/all/users`
+        `https://modern-study-library.drhlabs.com/api/users/get/all/users`
       );
       const data = await response.json();
       setRecords(data.users);
@@ -36,9 +36,12 @@ const ViewRecords = ({ isAuthenticated }) => {
 
   const handleDelete = async (id) => {
     try {
-      await fetch(`${process.env.REACTAPP_BACKEND_URL}/api/users/delete/user/${id}`, {
-        method: "DELETE",
-      });
+      await fetch(
+        `https://modern-study-library.drhlabs.com/api/users/delete/user/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
       notification.success({
         message: "Success",
         description: "Record deleted successfully!",
@@ -62,7 +65,7 @@ const ViewRecords = ({ isAuthenticated }) => {
     try {
       const values = form.getFieldsValue();
       const response = await fetch(
-        `${process.env.REACTAPP_BACKEND_URL}/api/users/update/user/${selectedUser._id}`,
+        `https://modern-study-library.drhlabs.com/api/users/update/user/${selectedUser._id}`,
         {
           method: "PATCH",
           headers: {

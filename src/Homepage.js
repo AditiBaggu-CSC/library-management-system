@@ -15,7 +15,7 @@ const HomePage = () => {
     const fetchImages = async () => {
       try {
         const response = await fetch(
-          `${process.env.REACTAPP_BACKEND_URL}/api/images/get/images`
+          `https://modern-study-library.drhlabs.com/api/images/get/images`
         );
         console.log(response);
 
@@ -23,8 +23,8 @@ const HomePage = () => {
           const data = await response.json();
           console.log(data);
           setImages({
-            registrationImage: `${process.env.REACTAPP_BACKEND_URL}/${data.images.registrationImage}`,
-            paymentsImage: `${process.env.REACTAPP_BACKEND_URL}/${data.images.paymentsImage}`,
+            registrationImage: `https://modern-study-library.drhlabs.com/${data.images.registrationImage}`,
+            paymentsImage: `https://modern-study-library.drhlabs.com/${data.images.paymentsImage}`,
           });
         } else {
           throw new Error("Failed to fetch images");

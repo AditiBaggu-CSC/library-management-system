@@ -37,7 +37,7 @@ const MonthlyPaymentForm = () => {
 
     try {
       const response = await fetch(
-        `${process.env.REACTAPP_BACKEND_URL}/api/users/monthly/payment`,
+        `https://modern-study-library.drhlabs.com/api/users/monthly/payment`,
         {
           method: "POST",
           body: formData,
