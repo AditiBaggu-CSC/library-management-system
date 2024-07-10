@@ -6,7 +6,7 @@
 .update-button {
   background-color: #4c516d;
   color: #fff;
-  margin-right: 8px;
+  margin-bottom: 5px;
 }
 
 .update-button:hover {
@@ -16,6 +16,7 @@
 .delete-button {
   background-color: #ff4d4f;
   color: #fff;
+  margin-left: 3px;
 }
 
 .delete-button:hover {

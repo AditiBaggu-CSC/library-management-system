@@ -110,7 +110,15 @@ const ViewRecords = ({ isAuthenticated }) => {
       key: "presentAddress",
     },
     { title: "Renewal Date", dataIndex: "renewalDate", key: "renewalDate" },
-    { title: "Amount", dataIndex: "paymentAmount", key: "paymentAmount" },
+    {
+      title: "Payment Amount",
+      dataIndex: "payments",
+      key: "payments",
+      render: (payments) =>
+        payments && payments.length > 0
+          ? payments[payments.length - 1].amount
+          : "N/A",
+    },
     {
       title: "Action",
       key: "action",
