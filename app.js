@@ -32,7 +32,9 @@ app.use((req, res, next) => {
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/api/users", userRoutes);
 app.use("/api/images", imageRoutes);
-
+app.get("/", (req, res) => {
+  return res.status(200).json({ message: "Hello World" });
+});
 scheduleEmailReminders();
 
 mongoose
