@@ -2,7 +2,7 @@ const Image = require("../Models/Image");
 const HttpError = require("../Middleware/http-error");
 
 const updateImages = async (req, res, next) => {
-  let registrationImage, paymentsImage;
+  let registrationImage, paymentsImage, suggestionsImage;
 
   if (req.files) {
     registrationImage = req.files.registrationImage
@@ -11,15 +11,23 @@ const updateImages = async (req, res, next) => {
     paymentsImage = req.files.paymentsImage
       ? req.files.paymentsImage[0].path
       : undefined;
+    suggestionsImage = req.files.suggestionsImage
+      ? req.files.suggestionsImage[0].path
+      : undefined;
   }
 
   try {
     let images = await Image.findOne({});
     if (!images) {
-      images = new Image({ registrationImage, paymentsImage });
+      images = new Image({
+        registrationImage,
+        paymentsImage,
+        suggestionsImage,
+      });
     } else {
       if (registrationImage) images.registrationImage = registrationImage;
       if (paymentsImage) images.paymentsImage = paymentsImage;
+      if (suggestionsImage) images.suggestionsImage = suggestionsImage;
     }
 
     await images.save();

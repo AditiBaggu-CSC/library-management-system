@@ -8,6 +8,7 @@ const app = express();
 const PORT = process.env.PORT || 4444;
 const userRoutes = require("./Routes/UserRoutes");
 const imageRoutes = require("./Routes/ImageRoutes");
+const suggestionRoutes = require("./Routes/SuggestionRoutes");
 const { scheduleEmailReminders } = require("./emailScheduler");
 
 dotenv.config();
@@ -32,6 +33,7 @@ app.use((req, res, next) => {
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/api/users", userRoutes);
 app.use("/api/images", imageRoutes);
+app.use("/api/suggestions", suggestionRoutes);
 app.get("/", (req, res) => {
   return res.status(200).json({ message: "Hello World" });
 });

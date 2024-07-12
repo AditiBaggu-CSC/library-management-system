@@ -9,6 +9,7 @@ router.post(
   fileUpload.fields([
     { name: "registrationImage", maxCount: 1 },
     { name: "paymentsImage", maxCount: 1 },
+    { name: "suggestionsImage", maxCount: 1 },
   ]),
   imageController.updateImages
 );
