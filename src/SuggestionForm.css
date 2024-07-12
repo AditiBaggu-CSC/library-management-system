@@ -1,0 +1,65 @@
+body {
+  background-color: #4c516d;
+  font-family: Arial, sans-serif;
+}
+
+.suggestion {
+  background-color: #4c516d;
+  font-family: Arial, sans-serif;
+}
+
+.suggestion .container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.suggestion .form-card {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  width: 750px;
+  box-shadow: rgb(255, 255, 255) 5px 5px, rgba(240, 235, 235, 0.3) 10px 10px,
+    rgba(199, 197, 197, 0.2) 15px 15px, rgba(150, 148, 148, 0.1) 20px 20px,
+    rgba(139, 138, 138, 0.05) 25px 25px;
+}
+
+.suggestion .form-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+}
+
+.suggestion .text-2xl {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.suggestion .font-bold {
+  font-weight: bold;
+}
+
+.suggestion .mb-4 {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.suggestion .ant-btn-primary {
+  background-color: #4c516d;
+  border-color: #4c516d;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .suggestion .form-card {
+    padding: 20px;
+    width: 100%;
+  }
+
+  .suggestion .ant-col {
+    width: 100% !important;
+  }
+}

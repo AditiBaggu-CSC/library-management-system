@@ -25,6 +25,7 @@ const HomePage = () => {
           setImages({
             registrationImage: `https://modern-study-library.drhlabs.com/${data.images.registrationImage}`,
             paymentsImage: `https://modern-study-library.drhlabs.com/${data.images.paymentsImage}`,
+            suggestionsImage: `https://modern-study-library.drhlabs.com/${data.images.suggestionsImage}`,
           });
         } else {
           throw new Error("Failed to fetch images");
@@ -65,6 +66,17 @@ const HomePage = () => {
             alt="Monthly Payments"
             className="image-right"
             onClick={() => handleImageClick("/monthly/payment")}
+          />
+        </div>
+        <div className="image-box">
+          <div className="image-heading">
+            <h2>Suggestions</h2>
+          </div>
+          <img
+            src={images.suggestionsImage}
+            alt="Suggestions"
+            className="image-right"
+            onClick={() => handleImageClick("/suggestions")}
           />
         </div>
       </div>

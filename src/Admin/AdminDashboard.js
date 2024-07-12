@@ -28,6 +28,13 @@ const AdminDashboard = ({ isAuthenticated }) => {
         >
           <div className="card-title">Update Images</div>
         </Card>
+        <Card
+          className="dashboard-card"
+          hoverable
+          onClick={() => navigate("/admin/view-suggestions")}
+        >
+          <div className="card-title">View Suggestions</div>
+        </Card>
       </div>
     </div>
   );

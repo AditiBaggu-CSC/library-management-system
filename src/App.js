@@ -8,6 +8,8 @@ import ViewRecords from "./Admin/ViewRecords";
 import UpdateImages from "./Admin/UpdateImages";
 import SignInForm from "./signin";
 import Navbar from "./Navbar";
+import SuggestionForm from "./SuggestionForm";
+import ViewSuggestions from "./Admin/ViewSuggestions";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -23,6 +25,8 @@ const App = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/register" element={<UserForm />} />
           <Route path="/monthly/payment" element={<MonthlyPaymentForm />} />
+          <Route path="/suggestions" element={<SuggestionForm />} />
+
           <Route
             path="/signin"
             element={<SignInForm setIsAuthenticated={setIsAuthenticated} />}
@@ -38,6 +42,10 @@ const App = () => {
           <Route
             path="/admin/update-images"
             element={<UpdateImages isAuthenticated={isAuthenticated} />}
+          />
+          <Route
+            path="/admin/view-suggestions"
+            element={<ViewSuggestions isAuthenticated={isAuthenticated} />}
           />
         </Routes>
       </BrowserRouter>
