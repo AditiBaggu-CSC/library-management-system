@@ -8,8 +8,8 @@ const transporter = nodemailer.createTransport({
   port: 587,
   secure: false,
   auth: {
-    user: "no-reply_erp@thecorrectsteps.com", // Replace with your Outlook email
-    pass: "Sajaljain@390", // Replace with your Outlook password
+    user: "monikasharma@1234@thecorrectsteps.com", // Replace with your Outlook email
+    pass: "Monikasharma@1234", // Replace with your Outlook password
   },
 });
 
