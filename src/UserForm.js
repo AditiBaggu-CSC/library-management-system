@@ -306,6 +306,32 @@ const UserForm = () => {
               )}
             </Form.List>
             <h2 className="text-xl font-semibold mt-4">Payment Information</h2>
+            <div className="mt-4 p-4 border rounded-lg bg-gray-50">
+              <p className="mb-2 font-medium">
+                To make a payment, you can use the following details:
+              </p>
+              <p className="mb-1">
+                <strong>UPI ID:</strong> 8447627281@paytm
+              </p>
+              <p className="mb-2">
+                <strong>Bank transfer:</strong>
+              </p>
+              <div className="pl-4">
+                <p className="mb-1">
+                  <strong>Account Holder:</strong> Chahat Sharma
+                </p>
+                <p className="mb-1">
+                  <strong>Account Number:</strong> 2010101028727
+                </p>
+                <p className="mb-1">
+                  <strong>IFSC Code:</strong> CNRB0002010
+                </p>
+                <p className="mb-1">
+                  <strong>Bank:</strong> Canara Bank
+                </p>
+              </div>
+            </div>
+
             <Row gutter={16}>
               <Col span={24} md={12}>
                 <Item

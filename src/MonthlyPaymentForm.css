@@ -13,6 +13,7 @@ body {
   justify-content: flex-start;
   align-items: center;
   min-height: 100vh;
+  margin-top: 100px;
 }
 
 .monthly .form-card {
