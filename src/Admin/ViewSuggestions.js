@@ -20,7 +20,7 @@ const ViewSuggestions = ({ isAuthenticated }) => {
   const fetchSuggestions = async () => {
     try {
       const response = await fetch(
-        `http://localhost:4444/api/suggestions/get/all/suggestions`
+        `https://modern-study-library.drhlabs.com/api/suggestions/get/all/suggestions`
       );
       const data = await response.json();
       setSuggestions(data.suggestions);
@@ -35,7 +35,7 @@ const ViewSuggestions = ({ isAuthenticated }) => {
   const handleDelete = async (id) => {
     try {
       await fetch(
-        `http://localhost:4444/api/suggestions/delete/suggestion/${id}`,
+        `https://modern-study-library.drhlabs.com/api/suggestions/delete/suggestion/${id}`,
         {
           method: "DELETE",
         }

@@ -9,7 +9,7 @@ const SuggestionForm = () => {
   const onFinish = async (values) => {
     try {
       const response = await fetch(
-        `http://localhost:4444/api/suggestions/create/suggestion`,
+        `https://modern-study-library.drhlabs.com/api/suggestions/create/suggestion`,
         {
           method: "POST",
           headers: {

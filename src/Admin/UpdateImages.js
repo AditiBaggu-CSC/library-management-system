@@ -7,6 +7,7 @@ import "./UpdateImages.css"; // Import the CSS file
 const UpdateImages = ({ isAuthenticated }) => {
   const [registrationImage, setRegistrationImage] = useState(null);
   const [paymentsImage, setPaymentsImage] = useState(null);
+  const [suggestionsImage, setSuggestionsImage] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,6 +21,7 @@ const UpdateImages = ({ isAuthenticated }) => {
     if (registrationImage)
       formData.append("registrationImage", registrationImage);
     if (paymentsImage) formData.append("paymentsImage", paymentsImage);
+    if (suggestionsImage) formData.append("suggestionsImage", suggestionsImage);
 
     try {
       const response = await fetch(
@@ -77,6 +79,22 @@ const UpdateImages = ({ isAuthenticated }) => {
                   >
                     <Button icon={<UploadOutlined />}>
                       Select Payments Image
+                    </Button>
+                  </Upload>
+                </Form.Item>
+              </Col>
+            </Row>
+            <Row gutter={16}>
+              <Col xs={24} md={12}>
+                <Form.Item label="Suggestions Image">
+                  <Upload
+                    beforeUpload={(file) => {
+                      setSuggestionsImage(file);
+                      return false;
+                    }}
+                  >
+                    <Button icon={<UploadOutlined />}>
+                      Select Suggestions Image
                     </Button>
                   </Upload>
                 </Form.Item>
