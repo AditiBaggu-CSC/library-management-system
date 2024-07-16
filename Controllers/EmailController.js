@@ -20,7 +20,7 @@ exports.sendEmail = async (req, res) => {
     const emailAddresses = users.map((user) => user.email);
 
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: "monika.sharma@thecorrectsteps.com",
       to: emailAddresses,
       subject: subject,
       text: message,
